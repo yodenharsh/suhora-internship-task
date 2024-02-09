@@ -14,6 +14,8 @@ import GeoJSONUploader from "./GeoJSONUploader";
 import { GeoJSONFeatureCollection } from "../types";
 import MapClickHandler from "./MapClickHandler";
 import MapRecenterAuto from "./MapRecenterAuto";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 import React from "react";
 
 /**
@@ -82,7 +84,7 @@ const Map: FC = () => {
         const { lat, lng } = data.results[0].geometry;
         setMarker({ position: [lat, lng], address });
       } else {
-        console.error("No results found");
+        toast.error("Couldn't find address");
       }
     } catch (error) {
       console.error("Error geocoding address:", error);
@@ -156,6 +158,7 @@ const Map: FC = () => {
           </React.Fragment>
         )}
       </MapContainer>
+      <ToastContainer position="bottom-center" theme="colored" />
     </div>
   );
 };
