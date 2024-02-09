@@ -6,6 +6,7 @@ import Map from "./components/Map";
 import { FC } from "react";
 import TheHeader from "./components/layout/TheHeader";
 import HowTo from "./components/HowTo";
+import TheFooter from "./components/layout/TheFooter";
 
 const App: FC = () => {
   return (
@@ -15,6 +16,9 @@ const App: FC = () => {
       <section className="mt-12">
         <HowTo />
       </section>
+      <div className="mt-4 bg-gray-200 text-2xl text-gray-800 py-2">
+        <TheFooter />
+      </div>
     </div>
   );
 };
