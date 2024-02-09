@@ -68,10 +68,11 @@ const Map: FC = () => {
   }, 750);
 
   /**
-   * Handles the change event when the user  uses the search bar
+   * Handles the change event when the user  uses the search bar. Will not send request if address is less than 4 characters long
    * @param {string} address - The address as a string
    */
   const handleGeocodeAddress = async (address: string) => {
+    if (address.length <= 3) return;
     try {
       const response = await fetch(
         `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(
@@ -87,7 +88,7 @@ const Map: FC = () => {
         toast.error("Couldn't find address");
       }
     } catch (error) {
-      console.error("Error geocoding address:", error);
+      toast.error("Internal error:");
     }
   };
 
