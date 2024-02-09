@@ -7,6 +7,7 @@ import {
 } from "react-leaflet";
 import { useState } from "react";
 
+import { useDebouncedCallback } from "use-debounce";
 import "leaflet/dist/leaflet.css";
 import { FC } from "react";
 import GeoJSONUploader from "./GeoJSONUploader";
@@ -56,6 +57,18 @@ const Map: FC = () => {
     address: string;
   } | null>(null);
 
+  /**
+   * Debounce mechanism that sends API call only after 750ms without input change
+   * @param {string} address - The address as a string
+   */
+  const debouncedSearch = useDebouncedCallback((address) => {
+    handleGeocodeAddress(address);
+  }, 750);
+
+  /**
+   * Handles the change event when the user  uses the search bar
+   * @param {string} address - The address as a string
+   */
   const handleGeocodeAddress = async (address: string) => {
     try {
       const response = await fetch(
@@ -82,7 +95,7 @@ const Map: FC = () => {
       <input
         type="text"
         placeholder="Enter address"
-        onChange={(e) => handleGeocodeAddress(e.target.value)}
+        onChange={(e) => debouncedSearch(e.target.value)}
       />
 
       <select
@@ -96,7 +109,7 @@ const Map: FC = () => {
       <MapContainer
         center={marker ? marker.position : [19.07283, 72.88261]}
         zoom={13}
-        style={{ height: "75vh", width: "75vw" }}
+        style={{ height: "75vh", width: "1005vw" }}
       >
         <MapClickHandler
           setPopupPosition={setPopupPosition}
