@@ -92,24 +92,28 @@ const Map: FC = () => {
   return (
     <div>
       <GeoJSONUploader onGeoJSONLoad={handleGeoJSONLoad} />
-      <input
-        type="text"
-        placeholder="Enter address"
-        onChange={(e) => debouncedSearch(e.target.value)}
-      />
 
-      <select
-        title="active-layer"
-        value={activeLayer}
-        onChange={handleChangeLayer}
-      >
-        <option value="osm">OpenStreetMap</option>
-        <option value="satellite">Satallite Imagery </option>
-      </select>
+      <div className="relative">
+        <input
+          type="text"
+          placeholder="🔍 Start typing for forward geocoding the location"
+          onChange={(e) => debouncedSearch(e.target.value)}
+          className="md:w-2/5 w-full  px-4 py-2 pr-10 rounded-2xl border border-gray-300 focus:outline-none focus:border-blue-500"
+        />
+        <select
+          title="active-layer"
+          className="ml-12 h-9 rounded-xl border-2 border-black"
+          value={activeLayer}
+          onChange={handleChangeLayer}
+        >
+          <option value="osm">OpenStreetMap</option>
+          <option value="satellite">Satallite Imagery </option>
+        </select>
+      </div>
       <MapContainer
         center={marker ? marker.position : [19.07283, 72.88261]}
-        zoom={13}
-        style={{ height: "75vh", width: "1005vw" }}
+        zoom={5}
+        style={{ height: "75vh", width: "100vw", marginTop: "32px" }}
       >
         <MapClickHandler
           setPopupPosition={setPopupPosition}

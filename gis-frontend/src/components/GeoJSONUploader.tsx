@@ -69,8 +69,22 @@ const GeoJSONUploader: FC<GeoJSONProps> = ({ onGeoJSONLoad }) => {
 
   return (
     <div>
-      <input type="file" accept=".geojson" onChange={handleFileUpload} />
-      <div className="flex flex-wrap items-center space-x-2">
+      <label
+        htmlFor="files"
+        className="bg-transparent border hover:bg-blue-500 hover:text-white border-blue-500 text-blue-500 font-semibold py-2 px-4 rounded inline-flex items-center"
+      >
+        Upload your .geojson here
+      </label>
+
+      <input
+        type="file"
+        id="files"
+        accept=".geojson"
+        onChange={handleFileUpload}
+        className="appearance-none bg-transparent border w-0 invisible border-blue-500 text-blue-500 font-semibold py-2 px-4 rounded inline-flex items-center"
+      />
+
+      <div className="flex mt-1 mb-4 flex-wrap items-center space-x-2 mx-auto justify-center">
         {geojsonData.map((item, index) => (
           <div key={index} className="flex items-center space-x-2">
             <span className="bg-gray-200 rounded-full px-2 py-1">
