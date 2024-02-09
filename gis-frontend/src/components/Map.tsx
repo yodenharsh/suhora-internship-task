@@ -2,6 +2,8 @@ import {
   MapContainer,
   TileLayer,
   GeoJSON as GeoJSONLeaflet,
+  Popup,
+  Marker,
 } from "react-leaflet";
 import { useState } from "react";
 
@@ -9,6 +11,7 @@ import "leaflet/dist/leaflet.css";
 import { FC } from "react";
 import GeoJSONUploader from "./GeoJSONUploader";
 import { GeoJSONFeatureCollection } from "../types";
+import MapClickHandler from "./MapClickHandler";
 
 /**
  * Map component renders a Leaflet map with selectable tile layers.
@@ -38,6 +41,14 @@ const Map: FC = () => {
     setGeojsonData(data);
   };
 
+  const [popupPosition, setPopupPosition] = useState<[number, number] | null>(
+    null
+  );
+
+  const [markerPosition, setMarkerPosition] = useState<[number, number] | null>(
+    null
+  );
+
   return (
     <div>
       <GeoJSONUploader onGeoJSONLoad={handleGeoJSONLoad} />
@@ -55,6 +66,11 @@ const Map: FC = () => {
         zoom={13}
         style={{ height: "75vh", width: "75vw" }}
       >
+        <MapClickHandler
+          setPopupPosition={setPopupPosition}
+          setMarkerPosition={setMarkerPosition}
+        />
+
         {activeLayer === "osm" && (
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -76,6 +92,12 @@ const Map: FC = () => {
                 <GeoJSONLeaflet key={index} data={data} />
               )
           )}
+        {popupPosition && (
+          <Popup position={popupPosition}>
+            Latitude: {popupPosition[0]},<br /> Longitude: {popupPosition[1]}
+          </Popup>
+        )}
+        {markerPosition && <Marker position={markerPosition} />}
       </MapContainer>
     </div>
   );
