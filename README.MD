@@ -24,3 +24,11 @@ This repository contains a basic GIS web app capable of
 
 **Q: Why are the API keys public?**  
 **A:** The keys will remain public until this work has been reviewed. After that, the keys will be privated and every commit having them (as raw strings) will be taken care off
+
+**Q: What are the Performance results?**  
+**A:** Lighthouse was used to do analyze page performance on the build and reported these metrics:
+
+- **Performance**: 99
+- **Accessibility**: 98
+- **Best Practices**: 78
+- **SEO**: 82
